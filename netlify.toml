@@ -1,7 +1,17 @@
 [build]
-  command = "npm run build"
+  # Instala dependências e faz o build
+  command = "npm ci && npm run build"
+  # Vite gera a pasta dist
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "18"
-  NPM_VERSION = "9"
+  # Node “LTS” estável para Vite/TS
+  NODE_VERSION = "18.20.4"
+  # Garante que devDependencies sejam instaladas no Netlify
+  NPM_FLAGS = "--include=dev"
+
+# SPA fallback para React Router (todas as rotas caem no index.html)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
